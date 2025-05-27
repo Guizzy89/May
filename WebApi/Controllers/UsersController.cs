@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyStore.BusinessLogicLayer.Services;
+using WebApplication1.BusinessLogicLayer.Services;
 using System.Collections.Generic;
+using WebApplication1.DataAccessLayer.Models;
 
-namespace MyStore.WebApi.Controllers
+namespace WebApplication1.WebApi.Controllers
 {
     [Route("api/users")]
     [ApiController]

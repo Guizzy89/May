@@ -1,17 +1,24 @@
-public class Category
+using System.Collections.Generic;
+using WebApplication1.DataAccessLayer.Models;
+
+namespace WebApplication1.DataAccessLayer.Models
 {
-    private readonly int _categoryId;
-    private readonly string _name;
-
-    public int CategoryId => _categoryId;
-    public string Name => _name;
-
-    public Category(int categoryId, string name)
+    public class Category
     {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Ќазвание категории не может быть пустым.", nameof(name));
+        public int CategoryId { get; set; }
+        public string Name { get; set; }
 
-        _categoryId = categoryId;
-        _name = name;
+        public virtual ICollection<Product> Products { get; set; } = [];
+
+        public Category() { }
+
+        public Category(int categoryId, string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Ќазвание категории не может быть пустым.", nameof(name));
+
+            this.CategoryId = categoryId;
+            this.Name = name;
+        }
     }
 }

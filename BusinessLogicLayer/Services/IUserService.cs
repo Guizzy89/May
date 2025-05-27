@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using WebApplication1.DataAccessLayer.Models;
 
-namespace MyStore.BusinessLogicLayer.Services
+namespace WebApplication1.BusinessLogicLayer.Services
 {
     public interface IUserService
     {

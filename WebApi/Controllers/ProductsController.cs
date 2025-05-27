@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyStore.BusinessLogicLayer.Services;
-using System.Collections.Generic;
+using WebApplication1.BusinessLogicLayer.Services;
+using WebApplication1.BusinessLogicLayer.Dtos;
+using WebApplication1.DataAccessLayer.Models;
 
-namespace MyStore.WebApi.Controllers
+namespace WebApplication1.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/products")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -19,7 +20,36 @@ namespace MyStore.WebApi.Controllers
         public IActionResult GetProducts()
         {
             var products = _productService.GetProducts();
-            return Ok(products);
+            return Ok(products.Select(p => new ProductDTO
+            {
+                ProductId = p.ProductId,
+                Name = p.Name,
+                Price = p.Price,
+                StockQuantity = p.StockQuantity,
+                Category = new CategoryDTO
+                {
+                    CategoryId = p.Category.CategoryId,
+                    Name = p.Category.Name
+                }
+            }));
+        }
+
+        [HttpPost]
+        public IActionResult PostProduct([FromBody] ProductDTO productDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var product = new Product(
+                productDto.ProductId,
+                productDto.Name,
+                productDto.Price,
+                productDto.StockQuantity,
+                new Category(productDto.Category.CategoryId, productDto.Category.Name)
+            );
+
+            _productService.CreateProduct(product);
+            return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, product);
         }
 
         [HttpGet("{id}")]
@@ -28,21 +58,23 @@ namespace MyStore.WebApi.Controllers
             var product = _productService.GetProductById(id);
             if (product == null)
                 return NotFound();
-            return Ok(product);
-        }
 
-        [HttpPost]
-        public IActionResult PostProduct([FromBody] Product product)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            _productService.CreateProduct(product);
-            return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, product);
+            return Ok(new ProductDTO
+            {
+                ProductId = product.ProductId,
+                Name = product.Name,
+                Price = product.Price,
+                StockQuantity = product.StockQuantity,
+                Category = new CategoryDTO
+                {
+                    CategoryId = product.Category.CategoryId,
+                    Name = product.Category.Name
+                }
+            });
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutProduct([FromRoute] Guid id, [FromBody] Product updatedProduct)
+        public IActionResult PutProduct([FromRoute] Guid id, [FromBody] ProductDTO updatedProductDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -51,15 +83,16 @@ namespace MyStore.WebApi.Controllers
             if (existingProduct == null)
                 return NotFound();
 
-            var updatedProductWithId = new Product(
+            var updatedProduct = new Product(
                 id,
-                updatedProduct.Name,
-                updatedProduct.Price,
-                updatedProduct.StockQuantity,
-                updatedProduct.Category
-    );
+                updatedProductDto.Name,
+                updatedProductDto.Price,
+                updatedProductDto.StockQuantity,
+                new Category(updatedProductDto.Category.CategoryId, updatedProductDto.Category.Name)
+            );
+
             _productService.UpdateProduct(updatedProduct);
-            return NoContent(); 
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
@@ -70,7 +103,7 @@ namespace MyStore.WebApi.Controllers
                 return NotFound();
 
             _productService.DeleteProduct(id);
-            return NoContent(); 
+            return NoContent();
         }
     }
 }

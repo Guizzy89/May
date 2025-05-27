@@ -1,7 +1,8 @@
-﻿using MyStore.DataAccessLayer.Repositories;
+﻿using WebApplication1.DataAccessLayer.Repositories;
 using System.Collections.Generic;
+using WebApplication1.DataAccessLayer.Models;
 
-namespace MyStore.BusinessLogicLayer.Services
+namespace WebApplication1.BusinessLogicLayer.Services
 {
     public class UserService : IUserService
     {

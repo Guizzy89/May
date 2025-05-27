@@ -1,9 +1,12 @@
-using MyStore.BusinessLogicLayer.Services;
-using MyStore.DataAccessLayer.Repositories;
+using Microsoft.EntityFrameworkCore;
+using WebApplication1.BusinessLogicLayer.Services;
+using WebApplication1.DataAccessLayer;
+using WebApplication1.DataAccessLayer.Models;
 using WebApplication1.DataAccessLayer.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddDbContext<StoreDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IRepository<Product>, Repository<Product>>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

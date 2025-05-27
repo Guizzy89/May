@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyStore.DataAccessLayer;
+using WebApplication1.DataAccessLayer;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,7 +16,7 @@ namespace WebApplication1.DataAccessLayer.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        public IEnumerable<T> GetAll() => _dbSet.AsEnumerable();
+        public IEnumerable<T> GetAll() => _dbSet.ToList();
 
         public T GetById(object id) => _dbSet.Find(id);
 

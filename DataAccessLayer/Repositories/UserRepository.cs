@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using WebApplication1.DataAccessLayer;
 using WebApplication1.DataAccessLayer.Repositories;
+using System.Linq;
+using WebApplication1.DataAccessLayer.Models;
 
-namespace MyStore.DataAccessLayer.Repositories
+namespace WebApplication1.DataAccessLayer.Repositories
 {
     public class UserRepository : Repository<User>, IUserRepository
     {

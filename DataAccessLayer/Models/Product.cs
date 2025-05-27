@@ -1,32 +1,34 @@
-public class Product
+using WebApplication1.DataAccessLayer.Models;
+
+namespace WebApplication1.DataAccessLayer.Models
 {
-	private readonly Guid _productId;
-	private readonly string _name;
-	private readonly decimal _price;
-	private readonly int _stockQuantity;
-	private readonly Category _category;
+    public class Product
+    {        
+        public Guid ProductId { get; private set; }
+        public string Name { get; private set; }
+        public decimal Price { get; private set; }
+        public int StockQuantity { get; private set; }
+        public Category Category { get; private set; }
 
-	public Guid ProductId => _productId;
-	public string Name => _name;
-	public decimal Price => _price;
-	public int StockQuantity => _stockQuantity;
-	public Category Category => _category;
+        internal Product(Guid productId, string name, decimal price, int stockQuantity, Category category)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Ќазвание товара не может быть пустым.", nameof(name));
 
-	public Product(Guid productId, string name, decimal price, int stockQuantity, Category category)
-	{
-		if (string.IsNullOrWhiteSpace(name))
-			throw new ArgumentException("Ќазвание товара не может быть пустым.", nameof(name));
+            if (price < 0m || stockQuantity < 0)
+                throw new ArgumentException("÷ена и количество товара не могут быть отрицательными.", nameof(price));
 
-		if (price < 0m || stockQuantity < 0)
-			throw new ArgumentException("÷ена и количество товара не могут быть отрицательными.", nameof(price));
+            if (category is null)
+                throw new ArgumentNullException(nameof(category), " атегори€ товара не может быть пустой.");
 
-		if (category is null)
-			throw new ArgumentNullException(nameof(category), " атегори€ товара не может быть пустой.");
+            ProductId = productId;
+            Name = name;
+            Price = Math.Round(price, 2);
+            StockQuantity = stockQuantity;
+            Category = category;
+        }
 
-		_productId = productId;
-		_name = name;
-		_price = Math.Round(price, 2);
-		_stockQuantity = stockQuantity;
-		_category = category;
-	}
+        //  онструктор дл€ ORM (пустой)
+        public Product() { }
+    }
 }
