@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyStore.DataAccessLayer;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyStore.DataAccessLayer.Repositories
+namespace WebApplication1.DataAccessLayer.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly StoreDbContext _context;
-        private readonly DbSet<T> _dbSet;
+        protected DbSet<T> _dbSet;
 
         public Repository(StoreDbContext context)
         {

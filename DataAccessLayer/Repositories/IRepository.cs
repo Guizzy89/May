@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MyStore.DataAccessLayer.Repositories
+namespace WebApplication1.DataAccessLayer.Repositories
 {
     public interface IRepository<T> where T : class
     {

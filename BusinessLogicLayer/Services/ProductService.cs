@@ -1,5 +1,5 @@
-﻿using MyStore.DataAccessLayer.Repositories;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using WebApplication1.DataAccessLayer.Repositories;
 
 namespace MyStore.BusinessLogicLayer.Services
 {
