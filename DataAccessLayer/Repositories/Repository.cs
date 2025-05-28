@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebApplication1.BusinessLogicLayer.Services;
 using WebApplication1.DataAccessLayer;
-using System.Collections.Generic;
-using System.Linq;
+using WebApplication1.DataAccessLayer.Models;
+using WebApplication1.DataAccessLayer.Repositories;
 
 namespace WebApplication1.DataAccessLayer.Repositories
 {

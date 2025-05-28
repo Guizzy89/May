@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace WebApplication1.DataAccessLayer.Repositories
 {
-    public interface IShoppingCartRepository : IRepository<ShoppingCart>
+    public interface ICartRepository : IRepository<Cart>
     {
         void Delete(CartItem item);
-        ShoppingCart GetCartForUser(Guid userId);
+        Cart GetCartForUser(Guid userId);
     }
 }

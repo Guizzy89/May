@@ -7,6 +7,5 @@ namespace WebApplication1.DataAccessLayer.Repositories
     public interface IUserRepository : IRepository<User>
     {
         User FindByEmail(string email);
-        void Update(User user);
     }
 }

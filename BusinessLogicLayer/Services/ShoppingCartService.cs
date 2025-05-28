@@ -5,9 +5,9 @@ namespace WebApplication1.BusinessLogicLayer.Services
 {
     public class ShoppingCartService : IShoppingCartService
     {
-        private readonly IShoppingCartRepository _shoppingCartRepository;
+        private readonly ICartRepository _shoppingCartRepository;
 
-        public ShoppingCartService(IShoppingCartRepository shoppingCartRepository)
+        public ShoppingCartService(ICartRepository shoppingCartRepository)
         {
             _shoppingCartRepository = shoppingCartRepository;
         }

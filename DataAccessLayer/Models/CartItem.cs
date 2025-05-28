@@ -1,26 +1,28 @@
+using System;
+
 namespace WebApplication1.DataAccessLayer.Models
 {
-	public class CartItem
-	{
-		private readonly Guid _cartItemId;
-		private readonly Guid _productId;
-		private readonly int _quantity;
-		private readonly Guid _userId;
+    public class CartItem
+    {
+        public Guid CartItemId { get; set; }
+        public Guid ProductId { get; set; }
+        public Guid CartId { get; set; }
+        public int Quantity { get; set; }
 
-		public Guid CartItemId => _cartItemId;
-		public Guid ProductId => _productId;
-		public int Quantity => _quantity;
-		public Guid UserId => _userId;
+        // Навигационные свойства
+        public virtual Product Product { get; set; } // Связь с продуктом
+        public virtual Cart Cart { get; set; }      // Связь с корзиной
 
-		public CartItem(Guid cartItemId, Guid productId, int quantity, Guid userId)
-		{
-			if (quantity <= 0)
-				throw new ArgumentOutOfRangeException(nameof(quantity), "Количество товара должно быть больше нуля.");
+        // Конструктор с проверкой количества
+        public CartItem(Guid cartItemId, Guid productId, int quantity, Guid cartId)
+        {
+            if (quantity <= 0)
+                throw new ArgumentOutOfRangeException(nameof(quantity), "Количество товара должно быть больше нуля.");
 
-			_cartItemId = cartItemId;
-			_productId = productId;
-			_quantity = quantity;
-			_userId = userId;
-		}
-	}
-}	
+            CartItemId = cartItemId;
+            ProductId = productId;
+            Quantity = quantity;
+            CartId = cartId;
+        }
+    }
+}

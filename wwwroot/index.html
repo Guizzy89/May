@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Заголовок и стили -->
+</head>
+<body>
+    @RenderBody()
+
+    <!-- Компонент корзины -->
+    <div id="shopping-cart">
+        <h2>Моя корзина:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Цена</th>
+                    <th>Кол-во</th>
+                    <th>Сумма</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.CartItems)
+                {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Product.Price</td>
+                    <td><input type="number" min="1" max="@item.Product.StockQuantity" value="@item.Quantity"></td>
+                    <td>@(item.Product.Price * item.Quantity)</td>
+                    <td><button onclick="removeFromCart('@item.Id')">Удалить</button></td>
+                </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><strong>Общая сумма:</strong></td>
+                    <td>@Model.TotalAmount</td>
+                </tr>
+            </tfoot>
+        </table>
+        <a href="/checkout">Оформить заказ</a>
+    </div>
+
+    <!-- Скрипты и JS -->
+    <script src="~/js/site.js"></script>
+</body>
+</html>

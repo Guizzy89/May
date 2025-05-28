@@ -16,9 +16,11 @@ namespace WebApplication1.DataAccessLayer.Models
         public string Email => _email;
         public string FirstName => _firstName;
         public string LastName => _lastName;
-        public ShoppingCart ShoppingCart { get; set; }
+        public virtual Cart Cart { get; set; }
 
         public virtual ICollection<CartItem> CartItems { get; protected set; }
+
+        public User() { }
 
         public User(Guid userId, string email, string password, string firstName, string lastName)
         {

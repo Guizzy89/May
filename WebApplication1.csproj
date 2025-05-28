@@ -7,12 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.5" />
+    <Compile Remove="BusinessLogicLayer\Services\IOrderRepository.cs" />
+    <Compile Remove="BusinessLogicLayer\Services\IShoppingCartService.cs" />
+    <Compile Remove="BusinessLogicLayer\Services\ShoppingCartService.cs" />
+    <Compile Remove="DataAccessLayer\Models\ShoppingCart.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.5" />
   </ItemGroup>
 
 </Project>
